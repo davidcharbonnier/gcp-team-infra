@@ -33,4 +33,6 @@ module "nodepool" {
   }
   initial_node_count = 2
   node_disk_size     = 30
+  node_image_type    = "cos_containerd"
+  node_machine_type  = "e2-small"
 }
