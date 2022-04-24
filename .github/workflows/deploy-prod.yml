@@ -1,0 +1,40 @@
+name: Deploy PROD
+# The GitHub Actions docs (https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on)
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'prod/**'
+jobs:
+  terraform:
+    name: Run terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out modules
+        uses: actions/checkout@v2
+        with:
+          repository: 'GoogleCloudPlatform/cloud-foundation-fabric'
+          path: 'cloud-foundation-fabric'
+          ref: 'v15.0.0'
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: 'gcp-networking'
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform Init
+        run: terraform init
+        working-directory: 'gcp-networking/prod'
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.PROD_GOOGLE_CREDENTIALS }}
+      - name: Terraform Plan
+        run: terraform plan -out tfplan.binary
+        working-directory: 'gcp-networking/prod'
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.PROD_GOOGLE_CREDENTIALS }}
+      - name: Terraform Apply
+        run: terraform apply -no-color tfplan.binary
+        working-directory: 'gcp-networking/prod'
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.PROD_GOOGLE_CREDENTIALS }}
