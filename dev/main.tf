@@ -21,9 +21,15 @@ module "cluster" {
 }
 
 module "nodepool" {
-  source                      = "../../cloud-foundation-fabric/modules/gke-nodepool"
-  project_id                  = var.project_id
-  cluster_name                = module.cluster.name
-  location                    = "northamerica-northeast1"
-  name                        = "test"
+  source           = "../../cloud-foundation-fabric/modules/gke-nodepool"
+  project_id       = var.project_id
+  cluster_name     = module.cluster.name
+  location         = "northamerica-northeast1"
+  name             = "test"
+  node_preemptible = true
+  management_config = {
+    auto_repair  = true
+    auto_upgrade = true
+  }
+  initial_node_count = 2
 }
