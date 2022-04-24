@@ -27,14 +27,14 @@ jobs:
         run: terraform init
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Terraform Plan
         run: terraform plan -out tfplan.binary
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Terraform Apply
         run: terraform apply -no-color tfplan.binary
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
