@@ -53,7 +53,7 @@ jobs:
         run: terraform init
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
@@ -63,7 +63,7 @@ jobs:
         run: terraform plan -no-color
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         continue-on-error: true
       - uses: actions/github-script@v6
         env:
@@ -145,12 +145,12 @@ jobs:
         run: terraform init
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Terraform plan
         run: terraform plan -out tfplan.binary
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Terraform show
         run: terraform show -json tfplan.binary > plan.json
         working-directory: 'gcp-networking/dev'
