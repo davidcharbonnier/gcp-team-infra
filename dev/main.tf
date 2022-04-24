@@ -32,4 +32,5 @@ module "nodepool" {
     auto_upgrade = true
   }
   initial_node_count = 2
+  node_disk_size     = 30
 }
