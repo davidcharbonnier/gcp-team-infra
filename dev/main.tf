@@ -8,6 +8,7 @@ module "cluster" {
   secondary_range_pods      = "gke-pods"
   secondary_range_services  = "gke-services"
   default_max_pods_per_node = 32
+  enable_dataplane_v2       = true
   master_authorized_ranges = {
     internal-vms = "10.0.0.0/8"
   }
