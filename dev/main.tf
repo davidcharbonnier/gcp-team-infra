@@ -25,7 +25,7 @@ module "cluster" {
   enable_intranode_visibility = true
   enable_shielded_nodes       = true
   # logging_config = null
-  logging_service = ""
+  logging_service = null
   maintenance_config = {
     daily_maintenance_window = {
       start_time = "02:00"
@@ -37,7 +37,7 @@ module "cluster" {
   #   internal-vms = "10.0.0.0/8"
   # }
   # monitoring_config = null
-  monitoring_service = ""
+  monitoring_service = null
   # node_locations = []
   # peering_config = null
   private_cluster_config = {
