@@ -1,9 +1,9 @@
 module "cluster" {
-  source                   = "../../cloud-foundation-fabric/modules/gke-cluster"
-  project_id               = var.project_id
-  name                     = var.gke_cluster_name
-  location                 = var.location
-  network                  = var.vpc_self_links["dev-spoke-0"]
+  source     = "../../cloud-foundation-fabric/modules/gke-cluster"
+  project_id = var.project_id
+  name       = var.gke_cluster_name
+  location   = var.location
+  network    = var.vpc_self_links["dev-spoke-0"]
   # see: https://github.com/hashicorp/terraform-provider-google/issues/2802
   subnetwork               = var.subnet_self_links["dev-spoke-0"]["northamerica-northeast1/dev-infra-hosting-0-nane1"]
   secondary_range_pods     = var.gke_secondary_range_pods
@@ -61,7 +61,7 @@ module "nodepool" {
     auto_repair  = true
     auto_upgrade = true
   }
-  node_preemptible = var.gke_nodepool_node_preemptible
+  node_preemptible  = var.gke_nodepool_node_preemptible
   node_disk_size    = var.gke_nodepool_node_disk_size
   node_image_type   = var.gke_nodepool_node_image_type
   node_machine_type = var.gke_nodepool_node_machine_type

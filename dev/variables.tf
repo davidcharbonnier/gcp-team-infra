@@ -45,57 +45,57 @@ variable "project_id" {
 
 variable "location" {
   description = "Region where to create resources."
-  type = string
+  type        = string
 }
 
 variable "gke_cluster_name" {
   description = "Name of GKE cluster."
-  type = string
+  type        = string
 }
 
 variable "gke_secondary_range_pods" {
   description = "Name of GKE secondary IP range for pods."
-  type = string
+  type        = string
 }
 
 variable "gke_secondary_range_services" {
   description = "Name of GKE secondary IP range for services."
-  type = string
+  type        = string
 }
 
 variable "gke_authenticator_security_group" {
   description = "Name of GKE group for authentication."
-  type = string
+  type        = string
 }
 
 variable "gke_release_channel" {
   description = "Name of GKE release channel."
-  type = string
+  type        = string
 }
 
 variable "gke_nodepool_initial_node_count" {
   description = "Initial number of nodes in GKE nodepool."
-  type = number
+  type        = number
 }
 
 variable "gke_nodepool_node_preemptible" {
   description = "GKE nodepool preemptible nodes."
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "gke_nodepool_node_disk_size" {
   description = "GKE nodepool node disk size."
-  type = number
+  type        = number
 }
 
 variable "gke_nodepool_node_image_type" {
   description = "GKE nodepool node image type."
-  type = string
-  default = "cos_containerd"
+  type        = string
+  default     = "cos_containerd"
 }
 
 variable "gke_nodepool_node_machine_type" {
   description = "GKE nodepool node machine type."
-  type = string
+  type        = string
 }
