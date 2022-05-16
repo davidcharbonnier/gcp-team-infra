@@ -4,7 +4,8 @@ module "cluster" {
   name                     = var.gke_cluster_name
   location                 = var.location
   network                  = var.vpc_self_links.dev-spoke-0
-  subnetwork               = var.gke_subnetwork
+  # see: https://github.com/hashicorp/terraform-provider-google/issues/2802
+  subnetwork               = var.subnet_self_links.dev-spoke-0.northamerica-northeast1/dev-infra-hosting-0-nane1
   secondary_range_pods     = var.gke_secondary_range_pods
   secondary_range_services = var.gke_secondary_range_services
   # addons = null

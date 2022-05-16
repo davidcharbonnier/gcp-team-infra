@@ -1,7 +1,6 @@
 project_id   = "dev-infra-hosting-0"
 location     = "northamerica-northeast1"
 gke_cluster_name = "hosting"
-gke_subnetwork = "dev-infra-hosting-0-nane1"
 gke_secondary_range_pods = "gke-pods"
 gke_secondary_range_services = "gke-services"
 gke_authenticator_security_group = "gcp-team-infra@davidcharbonnier.fr"

@@ -53,11 +53,6 @@ variable "gke_cluster_name" {
   type = string
 }
 
-variable "gke_subnetwork" {
-  description = "Name of GKE subnetwork."
-  type = string
-}
-
 variable "gke_secondary_range_pods" {
   description = "Name of GKE secondary IP range for pods."
   type = string
