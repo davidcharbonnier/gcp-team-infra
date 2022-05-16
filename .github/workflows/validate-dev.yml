@@ -155,7 +155,7 @@ jobs:
         run: terraform show -json tfplan.binary > plan.json
         working-directory: 'gcp-networking/dev'
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.DEV_GOOGLE_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       # Install the Infracost CLI, see https://github.com/infracost/actions/tree/master/setup
       # for other inputs such as version, and pricing-api-endpoint (for self-hosted users).
       - name: Setup Infracost
