@@ -63,10 +63,10 @@ variable "gke_secondary_range_services" {
   type        = string
 }
 
-variable "gke_authenticator_security_group" {
-  description = "Name of GKE group for authentication."
-  type        = string
-}
+# variable "gke_authenticator_security_group" {
+#   description = "Name of GKE group for authentication."
+#   type        = string
+# }
 
 variable "gke_release_channel" {
   description = "Name of GKE release channel."
