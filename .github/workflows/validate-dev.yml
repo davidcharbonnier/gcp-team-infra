@@ -80,6 +80,11 @@ jobs:
             const botComment = comments.find(comment => {
               return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
             })
+            if (steps.plan.outputs.stdout.length > 300) {
+              const planOutput = "Plan output is too large, check action log"
+            } else {
+              const planOutput = steps.plan.outputs.stdout
+            }
 
             // 2. Prepare format of the comment
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
@@ -98,7 +103,7 @@ jobs:
             <details><summary>Plan Output</summary>
             
             \`\`\`\n
-            
+            ${{ planOutput }}
             \`\`\`
             
             </details>`;
