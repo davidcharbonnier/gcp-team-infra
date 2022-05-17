@@ -82,10 +82,11 @@ jobs:
             })
 
             // 2. Prepare format of the comment
+            let planOutput;
             if (steps.plan.outputs.stdout.length > 300) {
-              let planOutput = "Plan output is too large, check action log"
+              planOutput = "Plan output is too large, check action log"
             } else {
-              let planOutput = "${{ steps.plan.outputs.stdout }}"
+              planOutput = "${{ steps.plan.outputs.stdout }}"
             }
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
