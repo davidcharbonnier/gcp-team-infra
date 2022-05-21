@@ -66,8 +66,8 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         continue-on-error: true
       - uses: actions/github-script@v6
-        # env:
-        #   PLAN: "${{ steps.plan.outputs.stdout }}"
+        env:
+          PLAN: "${{ steps.plan.outputs.stdout }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
