@@ -45,11 +45,8 @@ module "cluster" {
     recurring_window      = null
     maintenance_exclusion = []
   }
+  # currently disabled as per 100 CIDR limit
   # master_authorized_ranges = local.github_actions_cidrs_map
-  # to be fixed by github actions IP ranges, this value is limited to 100 CIDR only
-  master_authorized_ranges = {
-    "github_actions" = "0.0.0.0/0"
-  }
   # monitoring_config = null
   monitoring_service = null
   # node_locations = []
