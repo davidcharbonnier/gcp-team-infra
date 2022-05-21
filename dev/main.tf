@@ -1,13 +1,13 @@
-data "http" "github_cidrs" {
-  url = "https://api.github.com/meta"
-}
-
-locals {
-  github_actions_cidrs = jsondecode(data.http.github_cidrs.body).actions
-  github_actions_cidrs_map = {
-    for cidr in local.github_actions_cidrs : "github_actions_${index(local.github_actions_cidrs, cidr)}" => cidr if !can(regex("::", cidr))
-  }
-}
+# data "http" "github_cidrs" {
+#   url = "https://api.github.com/meta"
+# }
+# 
+# locals {
+#   github_actions_cidrs = jsondecode(data.http.github_cidrs.body).actions
+#   github_actions_cidrs_map = {
+#     for cidr in local.github_actions_cidrs : "github_actions_${index(local.github_actions_cidrs, cidr)}" => cidr if !can(regex("::", cidr))
+#   }
+# }
 
 module "cluster" {
   source     = "../../cloud-foundation-fabric/modules/gke-cluster"
@@ -45,7 +45,11 @@ module "cluster" {
     recurring_window      = null
     maintenance_exclusion = []
   }
-  master_authorized_ranges = local.github_actions_cidrs_map
+  # master_authorized_ranges = local.github_actions_cidrs_map
+  # to be fixed by github actions IP ranges, this value is limited to 100 CIDR only
+  master_authorized_ranges = {
+    "github_actions" = "0.0.0.0/0"
+  }
   # monitoring_config = null
   monitoring_service = null
   # node_locations = []
