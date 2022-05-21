@@ -24,6 +24,8 @@ provider "google" {
 }
 provider "google-beta" {
 }
+provider "http" {
+}
 
 # end provider.tf for team-dev
 

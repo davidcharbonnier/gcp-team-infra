@@ -1,3 +1,14 @@
+data "http" "github_cidrs" {
+  url = "https://api.github.com/meta"
+}
+
+locals {
+  github_actions_cidrs = jsondecode(data.http.github_cidrs.body).actions
+  github_actions_cidrs_map = {
+    for cidr in local.github_actions_cidrs : "github_actions_${index(local.github_actions_cidrs, cidr)}" => cidr if !can(regex("::", cidr))
+  }
+}
+
 module "cluster" {
   source     = "../../cloud-foundation-fabric/modules/gke-cluster"
   project_id = var.project_id
@@ -9,7 +20,7 @@ module "cluster" {
   secondary_range_pods     = var.gke_secondary_range_pods
   secondary_range_services = var.gke_secondary_range_services
   # addons = null
-  authenticator_security_group = var.gke_authenticator_security_group
+  # authenticator_security_group = var.gke_authenticator_security_group
   # cluster_autoscaler = {
   #   enabled    = false
   #   cpu_min    = 0
@@ -34,9 +45,7 @@ module "cluster" {
     recurring_window      = null
     maintenance_exclusion = []
   }
-  # master_authorized_ranges = {
-  #   internal-vms = "10.0.0.0/8"
-  # }
+  master_authorized_ranges = local.github_actions_cidrs_map
   # monitoring_config = null
   monitoring_service = null
   # node_locations = []
@@ -50,19 +59,19 @@ module "cluster" {
   release_channel = var.gke_release_channel
 }
 
-module "nodepool" {
-  source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
-  project_id   = var.project_id
-  cluster_name = module.cluster.name
-  location     = var.location
-  # autoscaling_config = null
-  initial_node_count = var.gke_nodepool_initial_node_count
-  management_config = {
-    auto_repair  = true
-    auto_upgrade = true
-  }
-  node_preemptible  = var.gke_nodepool_node_preemptible
-  node_disk_size    = var.gke_nodepool_node_disk_size
-  node_image_type   = var.gke_nodepool_node_image_type
-  node_machine_type = var.gke_nodepool_node_machine_type
-}
+# module "nodepool" {
+#   source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
+#   project_id   = var.project_id
+#   cluster_name = module.cluster.name
+#   location     = var.location
+#   # autoscaling_config = null
+#   initial_node_count = var.gke_nodepool_initial_node_count
+#   management_config = {
+#     auto_repair  = true
+#     auto_upgrade = true
+#   }
+#   node_preemptible  = var.gke_nodepool_node_preemptible
+#   node_disk_size    = var.gke_nodepool_node_disk_size
+#   node_image_type   = var.gke_nodepool_node_image_type
+#   node_machine_type = var.gke_nodepool_node_machine_type
+# }
