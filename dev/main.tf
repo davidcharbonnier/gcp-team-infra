@@ -20,12 +20,19 @@ module "cluster" {
   secondary_range_pods     = var.gke_secondary_range_pods
   secondary_range_services = var.gke_secondary_range_services
   addons = {
-    dns_cache_config = {
-      enabled = true
+    cloudrun_config            = false
+    dns_cache_config           = true
+    horizontal_pod_autoscaling = true
+    http_load_balancing        = true
+    istio_config = {
+      enabled = false
+      tls     = false
     }
-    gce_persistent_disk_csi_driver_config = {
-      enabled = true
-    }
+    network_policy_config                 = false
+    gce_persistent_disk_csi_driver_config = true
+    gcp_filestore_csi_driver_config       = false
+    config_connector_config               = false
+    kalm_config                           = false
   }
   # authenticator_security_group = var.gke_authenticator_security_group
   # cluster_autoscaler = {
