@@ -28,13 +28,10 @@ provider "google-beta" {
 # }
 provider "helm" {
   kubernetes {
-    host                   = module.cluster.endpoint
-    cluster_ca_certificate = base64decode(module.cluster.ca_certificate)
-    exec {
-      api_version = "client.authentication.k8s.io/v1alpha1"
-      args        = ["container", "clusters", "get-credentials", module.cluster.name]
-      command     = "gcloud"
-    }
+    host                   = data.template_file.gke_endpoint.rendered
+    token                  = data.template_file.gke_access_token.rendered
+    cluster_ca_certificate = data.template_file.gke_ca_certificate.rendered
+    load_config_file       = false
   }
   experiments {
     manifest = true

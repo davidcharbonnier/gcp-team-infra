@@ -9,6 +9,21 @@
 #   }
 # }
 
+# We use this data provider to expose an access token for communicating with the GKE cluster.
+data "google_client_config" "default" {}
+
+data "template_file" "gke_endpoint" {
+  template = module.cluster.endpoint
+}
+
+data "template_file" "gke_access_token" {
+  template = data.google_client_config.default.access_token
+}
+
+data "template_file" "gke_ca_certificate" {
+  template = module.cluster.ca_certificate
+}
+
 module "cluster" {
   source     = "../../cloud-foundation-fabric/modules/gke-cluster"
   project_id = var.project_id
