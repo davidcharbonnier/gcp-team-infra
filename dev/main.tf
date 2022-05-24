@@ -19,7 +19,27 @@ module "cluster" {
   subnetwork               = var.subnet_self_links["dev-spoke-0"]["northamerica-northeast1/dev-infra-hosting-0-nane1"]
   secondary_range_pods     = var.gke_secondary_range_pods
   secondary_range_services = var.gke_secondary_range_services
-  # addons = null
+  labels                   = {}
+  addons = {
+    cloudrun_config            = false
+    dns_cache_config           = true
+    horizontal_pod_autoscaling = true
+    http_load_balancing        = true
+    istio_config = {
+      enabled = false
+      tls     = false
+    }
+    network_policy_config                 = false
+    gce_persistent_disk_csi_driver_config = true
+    gcp_filestore_csi_driver_config       = false
+    config_connector_config               = false
+    kalm_config                           = false
+  }
+  dns_config = {
+    cluster_dns        = "PROVIDER_UNSPECIFIED"
+    cluster_dns_scope  = "DNS_SCOPE_UNSPECIFIED"
+    cluster_dns_domain = ""
+  }
   # authenticator_security_group = var.gke_authenticator_security_group
   # cluster_autoscaler = {
   #   enabled    = false
@@ -60,19 +80,19 @@ module "cluster" {
   release_channel = var.gke_release_channel
 }
 
-# module "nodepool" {
-#   source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
-#   project_id   = var.project_id
-#   cluster_name = module.cluster.name
-#   location     = var.location
-#   # autoscaling_config = null
-#   initial_node_count = var.gke_nodepool_initial_node_count
-#   management_config = {
-#     auto_repair  = true
-#     auto_upgrade = true
-#   }
-#   node_preemptible  = var.gke_nodepool_node_preemptible
-#   node_disk_size    = var.gke_nodepool_node_disk_size
-#   node_image_type   = var.gke_nodepool_node_image_type
-#   node_machine_type = var.gke_nodepool_node_machine_type
-# }
+module "nodepool" {
+  source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
+  project_id   = var.project_id
+  cluster_name = module.cluster.name
+  location     = var.location
+  # autoscaling_config = null
+  initial_node_count = var.gke_nodepool_initial_node_count
+  management_config = {
+    auto_repair  = true
+    auto_upgrade = true
+  }
+  node_preemptible  = var.gke_nodepool_node_preemptible
+  node_disk_size    = var.gke_nodepool_node_disk_size
+  node_image_type   = var.gke_nodepool_node_image_type
+  node_machine_type = var.gke_nodepool_node_machine_type
+}
