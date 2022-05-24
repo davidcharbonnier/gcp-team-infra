@@ -19,7 +19,14 @@ module "cluster" {
   subnetwork               = var.subnet_self_links["dev-spoke-0"]["northamerica-northeast1/dev-infra-hosting-0-nane1"]
   secondary_range_pods     = var.gke_secondary_range_pods
   secondary_range_services = var.gke_secondary_range_services
-  # addons = null
+  addons = {
+    dns_cache_config = {
+      enabled = true
+    }
+    gce_persistent_disk_csi_driver_config = {
+      enabled = true
+    }
+  }
   # authenticator_security_group = var.gke_authenticator_security_group
   # cluster_autoscaler = {
   #   enabled    = false
