@@ -60,19 +60,19 @@ module "cluster" {
   release_channel = var.gke_release_channel
 }
 
-# module "nodepool" {
-#   source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
-#   project_id   = var.project_id
-#   cluster_name = module.cluster.name
-#   location     = var.location
-#   # autoscaling_config = null
-#   initial_node_count = var.gke_nodepool_initial_node_count
-#   management_config = {
-#     auto_repair  = true
-#     auto_upgrade = true
-#   }
-#   node_preemptible  = var.gke_nodepool_node_preemptible
-#   node_disk_size    = var.gke_nodepool_node_disk_size
-#   node_image_type   = var.gke_nodepool_node_image_type
-#   node_machine_type = var.gke_nodepool_node_machine_type
-# }
+module "nodepool" {
+  source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
+  project_id   = var.project_id
+  cluster_name = module.cluster.name
+  location     = var.location
+  # autoscaling_config = null
+  initial_node_count = var.gke_nodepool_initial_node_count
+  management_config = {
+    auto_repair  = true
+    auto_upgrade = true
+  }
+  node_preemptible  = var.gke_nodepool_node_preemptible
+  node_disk_size    = var.gke_nodepool_node_disk_size
+  node_image_type   = var.gke_nodepool_node_image_type
+  node_machine_type = var.gke_nodepool_node_machine_type
+}
