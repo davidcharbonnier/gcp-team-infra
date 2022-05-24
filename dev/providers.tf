@@ -31,7 +31,6 @@ provider "helm" {
     host                   = data.template_file.gke_endpoint.rendered
     token                  = data.template_file.gke_access_token.rendered
     cluster_ca_certificate = data.template_file.gke_ca_certificate.rendered
-    load_config_file       = false
   }
   experiments {
     manifest = true
