@@ -35,6 +35,11 @@ module "cluster" {
     config_connector_config               = false
     kalm_config                           = false
   }
+  dns_config = {
+    cluster_dns        = "PROVIDER_UNSPECIFIED"
+    cluster_dns_scope  = "DNS_SCOPE_UNSPECIFIED"
+    cluster_dns_domain = ""
+  }
   # authenticator_security_group = var.gke_authenticator_security_group
   # cluster_autoscaler = {
   #   enabled    = false
