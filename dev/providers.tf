@@ -36,6 +36,9 @@ provider "helm" {
       command     = "gcloud"
     }
   }
+  experiments {
+    manifest = true
+  }
 }
 
 # end provider.tf for team-dev
