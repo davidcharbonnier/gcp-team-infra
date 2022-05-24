@@ -96,3 +96,14 @@ module "nodepool" {
   node_image_type   = var.gke_nodepool_node_image_type
   node_machine_type = var.gke_nodepool_node_machine_type
 }
+
+resource "helm_release" "traefik" {
+  name       = "traefik"
+  repository = "https://helm.traefik.io/traefik"
+  chart      = "traefik"
+
+  set {
+    name  = "deployment.replicas"
+    value = 2
+  }
+}

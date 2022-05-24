@@ -24,8 +24,21 @@ provider "google" {
 }
 provider "google-beta" {
 }
-provider "http" {
+# provider "http" {
+# }
+provider "helm" {
+  kubernetes {
+    host                   = module.cluster.endpoint
+    cluster_ca_certificate = base64decode(module.cluster.ca_certificate)
+    exec {
+      api_version = "client.authentication.k8s.io/v1alpha1"
+      args        = ["container", "clusters", "get-credentials", module.cluster.name]
+      command     = "gcloud"
+    }
+  }
+  experiments {
+    manifest = true
+  }
 }
 
 # end provider.tf for team-dev
-
