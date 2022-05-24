@@ -30,7 +30,7 @@ provider "helm" {
   kubernetes {
     host                   = data.template_file.gke_endpoint.rendered
     token                  = data.template_file.gke_access_token.rendered
-    cluster_ca_certificate = data.template_file.gke_ca_certificate.rendered
+    cluster_ca_certificate = base64decode(data.template_file.gke_ca_certificate.rendered)
   }
   experiments {
     manifest = true
