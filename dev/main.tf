@@ -132,4 +132,9 @@ resource "helm_release" "traefik" {
     name  = "logs.access.enable"
     value = true
   }
+
+  set {
+    name  = "ports.web.redirectTo"
+    value = "websecure"
+  }
 }
