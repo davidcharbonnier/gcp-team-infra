@@ -123,13 +123,14 @@ resource "helm_release" "traefik" {
   namespace        = "traefik"
   create_namespace = true
 
-  set {
-    name  = "deployment.replicas"
-    value = 2
-  }
-
-  set {
-    name  = "logs.access.enable"
-    value = true
-  }
+  values = [
+    deployment:
+      replicas: 2
+    logs:
+      access:
+        enable: true
+    ports:
+      web:
+        redirectTo: websecure
+  ]
 }
