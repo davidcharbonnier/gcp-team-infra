@@ -111,6 +111,9 @@ module "nodepool" {
   node_disk_size    = var.gke_nodepool_node_disk_size
   node_image_type   = var.gke_nodepool_node_image_type
   node_machine_type = var.gke_nodepool_node_machine_type
+  node_tags = [
+    "gke-${module.cluster.name}-${var.project_id}"
+  ]
 }
 
 resource "helm_release" "traefik" {
