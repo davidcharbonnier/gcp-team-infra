@@ -132,6 +132,11 @@ resource "helm_release" "traefik" {
     name  = "logs.access.enable"
     value = true
   }
+
+  set {
+    name  = "ports.web.redirectTo"
+    value = "websecure"
+  }
 }
 
 resource "helm_release" "external-dns" {
@@ -161,5 +166,4 @@ resource "helm_release" "external-dns" {
   set {
     name  = "txtOwnerId"
     value = "gke-${module.cluster.name}-${var.project_id}"
-  }
 }
