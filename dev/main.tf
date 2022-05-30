@@ -158,9 +158,7 @@ resource "helm_release" "external-dns" {
 
   set {
     name  = "domainFilters"
-    value = [
-      "davidcharbonnier.fr"
-    ]
+    value = "{${join(",", var.external_dns_domains)}}"
   }
 
   set {
