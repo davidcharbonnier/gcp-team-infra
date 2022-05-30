@@ -166,4 +166,5 @@ resource "helm_release" "external-dns" {
   set {
     name  = "txtOwnerId"
     value = "gke-${module.cluster.name}-${var.project_id}"
+  }
 }
