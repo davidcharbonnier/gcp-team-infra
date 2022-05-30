@@ -138,3 +138,31 @@ resource "helm_release" "traefik" {
     value = "websecure"
   }
 }
+
+resource "helm_release" "external-dns" {
+  name             = "external-dns"
+  repository       = "https://kubernetes-sigs.github.io/external-dns/"
+  chart            = "external-dns"
+  namespace        = "external-dns"
+  create_namespace = true
+
+  set {
+    name  = "provider"
+    value = "google"
+  }
+
+  set {
+    name  = "triggerLoopOnEvent"
+    value = true
+  }
+
+  set {
+    name  = "domainFilters"
+    value = "{${join(",", var.external_dns_domains)}}"
+  }
+
+  set {
+    name  = "txtOwnerId"
+    value = "gke-${module.cluster.name}-${var.project_id}"
+  }
+}

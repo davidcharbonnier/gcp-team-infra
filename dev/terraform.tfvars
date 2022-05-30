@@ -8,3 +8,6 @@ gke_release_channel             = "RAPID"
 gke_nodepool_initial_node_count = 1 # in each zone within the region
 gke_nodepool_node_disk_size     = 30
 gke_nodepool_node_machine_type  = "e2-small"
+external_dns_domains = [
+  "davidcharbonnier.fr"
+]

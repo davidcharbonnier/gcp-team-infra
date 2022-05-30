@@ -99,3 +99,8 @@ variable "gke_nodepool_node_machine_type" {
   description = "GKE nodepool node machine type."
   type        = string
 }
+
+variable "external_dns_domains" {
+  description = "DNS domains updated with external-dns component"
+  type        = list(string)
+}
