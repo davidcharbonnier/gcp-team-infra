@@ -166,3 +166,26 @@ resource "helm_release" "external-dns" {
     value = "gke-${module.cluster.name}-${var.project_id}"
   }
 }
+
+resource "helm_release" "crossplane" {
+  name             = "crossplane"
+  repository       = "https://charts.crossplane.io/stable"
+  chart            = "crossplane"
+  namespace        = "crossplane-system"
+  create_namespace = true
+
+  set {
+    name  = "replicas"
+    value = 2
+  }
+
+  set {
+    name  = "provider.packages"
+    value = "{${join(",", ["gcp"])}}"
+  }
+
+  set {
+    name  = "image.tag"
+    value = "stable"
+  }
+}
