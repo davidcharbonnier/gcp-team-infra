@@ -16,6 +16,9 @@ server:
     # -- Enable an ingress resource for the Argo CD server
     enabled: true
 
+    # -- Defines which ingress controller will implement the resource
+    ingressClassName: "traefik"
+
     # -- List of ingress hosts
     ## Argo Ingress.
     ## Hostnames must be provided if Ingress is enabled.
