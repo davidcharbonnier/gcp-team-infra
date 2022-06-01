@@ -40,7 +40,7 @@ module "cluster" {
     cloudrun_config            = false
     dns_cache_config           = true
     horizontal_pod_autoscaling = true
-    http_load_balancing        = true
+    http_load_balancing        = false
     istio_config = {
       enabled = false
       tls     = false
