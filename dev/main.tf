@@ -216,9 +216,4 @@ resource "helm_release" "cert-manager" {
     name  = "installCRDs"
     value = true
   }
-
-  set {
-    name  = "image.tag"
-    value = "stable"
-  }
 }

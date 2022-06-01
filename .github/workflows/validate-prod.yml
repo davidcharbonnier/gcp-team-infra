@@ -42,7 +42,7 @@ jobs:
         with:
           path: 'gcp-networking'
       - name: Install terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v2
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
@@ -80,19 +80,19 @@ jobs:
             const botComment = comments.find(comment => {
               return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
             })
-
+      
             // 2. Prepare format of the comment
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
             <details><summary>Validation Output</summary>
-
+      
             \`\`\`\n
             ${{ steps.validate.outputs.stdout }}
             \`\`\`
-
+      
             </details>
-
+      
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
             
             <details><summary>Plan Output</summary>
@@ -138,7 +138,7 @@ jobs:
       # https://github.com/hashicorp/setup-terraform. Subsequent steps
       # can run Terraform commands as they would in the shell.
       - name: Install terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v2
         with:
           terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
       - name: Terraform init

@@ -32,9 +32,6 @@ provider "helm" {
     token                  = data.template_file.gke_access_token.rendered
     cluster_ca_certificate = base64decode(data.template_file.gke_ca_certificate.rendered)
   }
-  experiments {
-    manifest = true
-  }
 }
 
 # end provider.tf for team-dev
