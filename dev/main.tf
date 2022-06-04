@@ -133,10 +133,20 @@ resource "helm_release" "traefik" {
     value = true
   }
 
-  # set {
-  #   name  = "ports.web.redirectTo"
-  #   value = "websecure"
-  # }
+  set {
+    name  = "ports.web.redirectTo"
+    value = "websecure"
+  }
+
+  set {
+    name  = "ingressClass.enabled"
+    value = true
+  }
+
+  set {
+    name  = "ingressClass.isDefaultClass"
+    value = true
+  }
 }
 
 resource "helm_release" "external-dns" {
