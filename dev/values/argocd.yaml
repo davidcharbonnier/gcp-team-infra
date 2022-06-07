@@ -47,5 +47,12 @@ server:
     # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
     https: true
 
+  ## Server service configuration
+  service:
+    # -- Server service http port
+    servicePortHttp: 8080
+    # -- Server service https port
+    servicePortHttps: 8443
+
 repoServer:
   replicas: 2
