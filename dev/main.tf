@@ -116,37 +116,15 @@ module "nodepool" {
   ]
 }
 
-resource "helm_release" "traefik" {
-  name             = "traefik"
-  repository       = "https://helm.traefik.io/traefik"
-  chart            = "traefik"
-  namespace        = "traefik"
+resource "helm_release" "ingress-nginx" {
+  name             = "ingress-nginx"
+  repository       = "https://kubernetes.github.io/ingress-nginx"
+  chart            = "ingress-nginx"
+  namespace        = "ingress-nginx"
   create_namespace = true
-
-  set {
-    name  = "deployment.replicas"
-    value = 2
-  }
-
-  set {
-    name  = "logs.access.enable"
-    value = true
-  }
-
-  set {
-    name  = "ports.web.redirectTo"
-    value = "websecure"
-  }
-
-  set {
-    name  = "ingressClass.enabled"
-    value = true
-  }
-
-  set {
-    name  = "ingressClass.isDefaultClass"
-    value = true
-  }
+  values = [
+    "${file("values/ingress-nginx.yaml")}"
+  ]
 }
 
 resource "helm_release" "external-dns" {
