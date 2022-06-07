@@ -21,7 +21,7 @@ server:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
 
     # -- Defines which ingress controller will implement the resource
-    ingressClassName: "traefik"
+    # ingressClassName: "traefik"
 
     # -- List of ingress hosts
     ## Argo Ingress.
@@ -45,14 +45,14 @@ server:
       #     - argocd.example.com
     
     # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
-    https: true
+    # https: true
 
   ## Server service configuration
-  service:
-    # -- Server service http port
-    servicePortHttp: 8080
-    # -- Server service https port
-    servicePortHttps: 8443
+  # service:
+  #   # -- Server service http port
+  #   servicePortHttp: 8080
+  #   # -- Server service https port
+  #   servicePortHttps: 8443
 
 repoServer:
   replicas: 2
