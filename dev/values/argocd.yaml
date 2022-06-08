@@ -21,7 +21,8 @@ server:
     enabled: true
 
     # -- Additional ingress annotations
-    annotations: {}
+    annotations:
+      cert-manager.io/issuer: "letsencrypt-staging"
 
     # -- List of ingress hosts
     ## Argo Ingress.
@@ -38,10 +39,9 @@ server:
 
     # -- Ingress TLS configuration
     tls:
-      []
-      # - secretName: argocd-tls-certificate
-      #   hosts:
-      #     - argocd.example.com
+    - secretName: argocd-tls-certificate
+      hosts:
+        - argocd.davidcharbonnier.fr
 
 repoServer:
   replicas: 2
