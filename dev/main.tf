@@ -184,26 +184,23 @@ resource "helm_release" "cert-manager" {
   chart            = "cert-manager"
   namespace        = "cert-manager"
   create_namespace = true
+  values = [
+    "${file("values/cert-manager.yaml")}"
+  ]
+}
 
-  set {
-    name  = "replicaCount"
-    value = 2
-  }
+resource "kubernetes_manifest" "issuer-letsencrypt-staging" {
+  manifest = yamldecode(file("manifests/issuer-letsencrypt-staging.yaml"))
+  depends_on = [
+    helm_release.cert-manager
+  ]
+}
 
-  set {
-    name  = "webhook.replicaCount"
-    value = 2
-  }
-
-  set {
-    name  = "cainjector.replicaCount"
-    value = 2
-  }
-
-  set {
-    name  = "installCRDs"
-    value = true
-  }
+resource "kubernetes_manifest" "issuer-letsencrypt-prod" {
+  manifest = yamldecode(file("manifests/issuer-letsencrypt-prod.yaml"))
+  depends_on = [
+    helm_release.cert-manager
+  ]
 }
 
 resource "helm_release" "argocd" {
