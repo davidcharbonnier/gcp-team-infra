@@ -201,4 +201,10 @@ resource "helm_release" "argocd" {
   values = [
     "${file("../../deployment-config/configurations/argocd/values.yaml")}"
   ]
+
+  lifecycle {
+    ignore_changes = [
+      values
+    ]
+  }
 }
