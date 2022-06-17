@@ -21,6 +21,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: 'gcp-networking'
+      - name: Check out deployment config
+        uses: actions/checkout@v2
+        with:
+          repository: 'davidcharbonnier/deployments'
+          path: 'deployment-config'
+          ref: 'master'
       - name: Install terraform
         uses: hashicorp/setup-terraform@v1
       - name: Terraform Init
