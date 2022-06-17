@@ -210,6 +210,6 @@ resource "helm_release" "argocd" {
   namespace        = "argocd"
   create_namespace = true
   values = [
-    "${file("../../deployment-config/argocd/argocd.yaml")}"
+    "${file("../../deployment-config/configurations/argocd/values.yaml")}"
   ]
 }
