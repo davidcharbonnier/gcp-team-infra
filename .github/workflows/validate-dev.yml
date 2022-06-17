@@ -27,7 +27,7 @@ jobs:
         with:
           repository: 'davidcharbonnier/deployments'
           path: 'deployment-config'
-          ref: 'HEAD'
+          ref: 'master'
       - name: tfsec
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
@@ -52,7 +52,7 @@ jobs:
         with:
           repository: 'davidcharbonnier/deployments'
           path: 'deployment-config'
-          ref: 'HEAD'
+          ref: 'master'
       - name: Install terraform
         uses: hashicorp/setup-terraform@v1
       - name: Terraform fmt
@@ -151,7 +151,7 @@ jobs:
         with:
           repository: 'davidcharbonnier/deployments'
           path: 'deployment-config'
-          ref: 'HEAD'
+          ref: 'master'
       # Typically the Infracost actions will be used in conjunction with
       # https://github.com/hashicorp/setup-terraform. Subsequent steps
       # can run Terraform commands as they would in the shell.

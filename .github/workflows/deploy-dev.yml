@@ -26,7 +26,7 @@ jobs:
         with:
           repository: 'davidcharbonnier/deployments'
           path: 'deployment-config'
-          ref: 'HEAD'
+          ref: 'master'
       - name: Install terraform
         uses: hashicorp/setup-terraform@v1
       - name: Terraform Init
