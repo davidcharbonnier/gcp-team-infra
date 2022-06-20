@@ -116,29 +116,6 @@ module "nodepool" {
   ]
 }
 
-resource "helm_release" "crossplane" {
-  name             = "crossplane"
-  repository       = "https://charts.crossplane.io/stable"
-  chart            = "crossplane"
-  namespace        = "crossplane-system"
-  create_namespace = true
-
-  set {
-    name  = "replicas"
-    value = 2
-  }
-
-  set {
-    name  = "provider.packages"
-    value = "{${join(",", ["gcp"])}}"
-  }
-
-  set {
-    name  = "image.tag"
-    value = "stable"
-  }
-}
-
 resource "helm_release" "argocd" {
   name             = "argocd"
   repository       = "https://argoproj.github.io/argo-helm"
