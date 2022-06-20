@@ -167,31 +167,6 @@ resource "helm_release" "crossplane" {
   }
 }
 
-resource "helm_release" "cert-manager" {
-  name             = "cert-manager"
-  repository       = "https://charts.jetstack.io"
-  chart            = "cert-manager"
-  namespace        = "cert-manager"
-  create_namespace = true
-  values = [
-    "${file("values/cert-manager.yaml")}"
-  ]
-}
-
-resource "kubernetes_manifest" "issuer-letsencrypt-staging" {
-  manifest = yamldecode(file("manifests/issuer-letsencrypt-staging.yaml"))
-  depends_on = [
-    helm_release.cert-manager
-  ]
-}
-
-resource "kubernetes_manifest" "issuer-letsencrypt-prod" {
-  manifest = yamldecode(file("manifests/issuer-letsencrypt-prod.yaml"))
-  depends_on = [
-    helm_release.cert-manager
-  ]
-}
-
 resource "helm_release" "argocd" {
   name             = "argocd"
   repository       = "https://argoproj.github.io/argo-helm"
