@@ -17,7 +17,7 @@ jobs:
         with:
           repository: 'GoogleCloudPlatform/cloud-foundation-fabric'
           path: 'cloud-foundation-fabric'
-          ref: 'v15.0.0'
+          ref: 'v16.0.0'
       - name: Check out code
         uses: actions/checkout@v2
         with:

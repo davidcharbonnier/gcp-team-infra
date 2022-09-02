@@ -24,20 +24,25 @@ provider "google" {
 }
 provider "google-beta" {
 }
-# provider "http" {
-# }
-provider "helm" {
-  kubernetes {
-    host                   = data.template_file.gke_endpoint.rendered
-    token                  = data.template_file.gke_access_token.rendered
-    cluster_ca_certificate = base64decode(data.template_file.gke_ca_certificate.rendered)
-  }
-}
-
-provider "kubernetes" {
-  host                   = "https://${data.template_file.gke_endpoint.rendered}"
-  token                  = data.template_file.gke_access_token.rendered
-  cluster_ca_certificate = base64decode(data.template_file.gke_ca_certificate.rendered)
-}
+#provider "helm" {
+#  kubernetes {
+#    host                   = data.template_file.gke_endpoint.rendered
+#    cluster_ca_certificate = base64decode(data.template_file.gke_ca_certificate.rendered)
+#    exec {
+#      api_version = "client.authentication.k8s.io/v1beta1"
+#      args        = ["container", "clusters", "get-credentials", data.template_file.gke_name.rendered]
+#      command     = "gcloud"
+#    }
+#  }
+#}
+#provider "kubernetes" {
+#  host                   = "https://${data.template_file.gke_endpoint.rendered}"
+#  cluster_ca_certificate = base64decode(data.template_file.gke_ca_certificate.rendered)
+#  exec {
+#      api_version = "client.authentication.k8s.io/v1beta1"
+#      args        = ["container", "clusters", "get-credentials", data.template_file.gke_name.rendered]
+#      command     = "gcloud"
+#    }
+#}
 
 # end provider.tf for team-dev

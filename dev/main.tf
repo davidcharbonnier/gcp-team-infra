@@ -1,27 +1,13 @@
-# data "http" "github_cidrs" {
-#   url = "https://api.github.com/meta"
-# }
-# 
-# locals {
-#   github_actions_cidrs = jsondecode(data.http.github_cidrs.body).actions
-#   github_actions_cidrs_map = {
-#     for cidr in local.github_actions_cidrs : "github_actions_${index(local.github_actions_cidrs, cidr)}" => cidr if !can(regex("::", cidr))
-#   }
-# }
-
-# We use this data provider to expose an access token for communicating with the GKE cluster.
-data "google_client_config" "default" {}
-
 ###
-#  Workarounds to allow Helm provider work with GKE
+#  Workarounds to allow Helm/Kubernetes provider work with GKE
 data "template_file" "gke_endpoint" {
   template = module.cluster.endpoint
 }
-data "template_file" "gke_access_token" {
-  template = data.google_client_config.default.access_token
-}
 data "template_file" "gke_ca_certificate" {
   template = module.cluster.ca_certificate
+}
+data "template_file" "gke_name" {
+  template = module.cluster.name
 }
 ###
 
@@ -50,6 +36,7 @@ module "cluster" {
     gcp_filestore_csi_driver_config       = false
     config_connector_config               = false
     kalm_config                           = false
+    gke_backup_agent_config               = false
   }
   dns_config = {
     cluster_dns        = "PROVIDER_UNSPECIFIED"
@@ -116,19 +103,19 @@ module "nodepool" {
   ]
 }
 
-resource "helm_release" "argocd" {
-  name             = "argocd"
-  repository       = "https://argoproj.github.io/argo-helm"
-  chart            = "argo-cd"
-  namespace        = "argocd"
-  create_namespace = true
-  values = [
-    "${file("../../deployment-config/configurations/argocd/values.yaml")}"
-  ]
-
-  lifecycle {
-    ignore_changes = [
-      values
-    ]
-  }
-}
+#resource "helm_release" "argocd" {
+#  name             = "argocd"
+#  repository       = "https://argoproj.github.io/argo-helm"
+#  chart            = "argo-cd"
+#  namespace        = "argocd"
+#  create_namespace = true
+#  values = [
+#    "${file("../../deployment-config/configurations/argocd/values.yaml")}"
+#  ]
+#
+#  lifecycle {
+#    ignore_changes = [
+#      values
+#    ]
+#  }
+#}
