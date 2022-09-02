@@ -33,7 +33,7 @@ module "cluster" {
     }
     network_policy_config                 = false
     gce_persistent_disk_csi_driver_config = true
-    gcp_filestore_csi_driver_config       = false
+    # gcp_filestore_csi_driver_config       = false
     config_connector_config               = false
     kalm_config                           = false
     gke_backup_agent_config               = false
@@ -58,8 +58,8 @@ module "cluster" {
   # }
   enable_autopilot            = true
   enable_dataplane_v2         = true
-  enable_intranode_visibility = true
-  enable_shielded_nodes       = true
+  # enable_intranode_visibility = true
+  # enable_shielded_nodes       = true
   # logging_config = null
   logging_service = null
   maintenance_config = {
