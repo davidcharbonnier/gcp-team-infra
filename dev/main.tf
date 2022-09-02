@@ -33,7 +33,7 @@ module "cluster" {
     }
     network_policy_config                 = false
     gce_persistent_disk_csi_driver_config = true
-    # gcp_filestore_csi_driver_config       = false
+    gcp_filestore_csi_driver_config       = true
     config_connector_config               = false
     kalm_config                           = false
     gke_backup_agent_config               = false
