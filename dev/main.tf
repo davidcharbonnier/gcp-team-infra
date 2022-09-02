@@ -33,7 +33,7 @@ module "cluster" {
     }
     network_policy_config                 = false
     gce_persistent_disk_csi_driver_config = true
-    gcp_filestore_csi_driver_config       = true
+    gcp_filestore_csi_driver_config       = false
     config_connector_config               = false
     kalm_config                           = false
     gke_backup_agent_config               = false
@@ -56,10 +56,9 @@ module "cluster" {
   #   state    = "DECRYPTED"
   #   key_name = null
   # }
-  enable_autopilot            = true
   enable_dataplane_v2         = true
-  # enable_intranode_visibility = true
-  # enable_shielded_nodes       = true
+  enable_intranode_visibility = true
+  enable_shielded_nodes       = true
   # logging_config = null
   logging_service = null
   maintenance_config = {
@@ -84,25 +83,25 @@ module "cluster" {
   release_channel = var.gke_release_channel
 }
 
-#module "nodepool" {
-#  source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
-#  project_id   = var.project_id
-#  cluster_name = module.cluster.name
-#  location     = var.location
-#  # autoscaling_config = null
-#  initial_node_count = var.gke_nodepool_initial_node_count
-#  management_config = {
-#    auto_repair  = true
-#    auto_upgrade = true
-#  }
-#  node_preemptible  = var.gke_nodepool_node_preemptible
-#  node_disk_size    = var.gke_nodepool_node_disk_size
-#  node_image_type   = var.gke_nodepool_node_image_type
-#  node_machine_type = var.gke_nodepool_node_machine_type
-#  node_tags = [
-#    "gke-${module.cluster.name}-${var.project_id}"
-#  ]
-#}
+module "nodepool" {
+  source       = "../../cloud-foundation-fabric/modules/gke-nodepool"
+  project_id   = var.project_id
+  cluster_name = module.cluster.name
+  location     = var.location
+  # autoscaling_config = null
+  initial_node_count = var.gke_nodepool_initial_node_count
+  management_config = {
+    auto_repair  = true
+    auto_upgrade = true
+  }
+  node_preemptible  = var.gke_nodepool_node_preemptible
+  node_disk_size    = var.gke_nodepool_node_disk_size
+  node_image_type   = var.gke_nodepool_node_image_type
+  node_machine_type = var.gke_nodepool_node_machine_type
+  node_tags = [
+    "gke-${module.cluster.name}-${var.project_id}"
+  ]
+}
 
 #resource "helm_release" "argocd" {
 #  name             = "argocd"
