@@ -8,6 +8,9 @@ module "budget_database" {
   tier             = var.database_instance_tier
   databases        = var.database_instance_databases
   users            = var.database_instance_users
+  allocated_ip_ranges = {
+    primary = "cloudsql-postgresql"
+  }
 }
 
 #module "budget_app" {
