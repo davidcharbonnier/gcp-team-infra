@@ -17,11 +17,13 @@ name: "TEAMS infra-hosting_dev"
 on:
   pull_request:
     branches:
-      - dev
+      - master
     types:
       - closed
       - opened
       - synchronize
+    paths:
+      - 'dev/**'
 
 env:
   FAST_OUTPUTS_BUCKET: dch-prod-iac-core-outputs-0
