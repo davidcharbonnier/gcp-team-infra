@@ -27,8 +27,8 @@ on:
 
 env:
   FAST_OUTPUTS_BUCKET: dch-prod-iac-core-outputs-0
-  #FAST_SERVICE_ACCOUNT: dch-prod-teams-infra-1@dch-prod-iac-core-0.iam.gserviceaccount.com
-  #FAST_WIF_PROVIDER: projects/496489482873/locations/global/workloadIdentityPools/dch-bootstrap/providers/dch-bootstrap-github
+  FAST_SERVICE_ACCOUNT: dch-prod-teams-infra-1@dch-prod-iac-core-0.iam.gserviceaccount.com
+  FAST_WIF_PROVIDER: projects/496489482873/locations/global/workloadIdentityPools/dch-bootstrap/providers/dch-bootstrap-github
   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
   TF_PROVIDERS_FILE: 03-teams-infra-providers.tf
   TF_VAR_FILES: 00-bootstrap.auto.tfvars.json
@@ -63,10 +63,9 @@ jobs:
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
-          #workload_identity_provider: ${{ env.FAST_WIF_PROVIDER }}
-          #service_account: ${{ env.FAST_SERVICE_ACCOUNT }}
-          #access_token_lifetime: 3600s
-          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+          workload_identity_provider: ${{ env.FAST_WIF_PROVIDER }}
+          service_account: ${{ env.FAST_SERVICE_ACCOUNT }}
+          access_token_lifetime: 3600s
 
       - id: gcp-sdk
         name: Set up Cloud SDK
