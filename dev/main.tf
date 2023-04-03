@@ -21,6 +21,7 @@ module "budget_app" {
   source     = "git@github.com:GoogleCloudPlatform/cloud-foundation-fabric.git//modules/cloud-run?ref=v21.0.0"
   project_id = var.project_id
   name       = var.budget_app_name
+  region     = var.region
   containers = [{
     image = var.budget_app_container_image
     options = {
