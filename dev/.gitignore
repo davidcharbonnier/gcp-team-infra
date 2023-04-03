@@ -29,3 +29,6 @@ override.tf.json
 # example: *tfplan*
 
 secret*.tfvars
+
+*auto.tfvars.json
+*-providers.tf

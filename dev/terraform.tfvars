@@ -1,4 +1,23 @@
-project_id                  = "dch-dev-infra-hosting-0"
-database_instance_name      = "budget"
-database_instance_databases = ["firefly"]
-database_instance_users     = { "firefly" = null }
+project_id                        = "dch-dev-infra-hosting-0"
+budget_database_instance_name     = "budget"
+budget_database_instance_database = "firefly"
+budget_database_instance_user     = "firefly"
+budget_app_name                   = "budget"
+budget_app_container_env = {
+  APP_NAME                 = "Budget"
+  APP_URL                  = "https://budget.davidcharbonnier.fr"
+  APP_ENV                  = "production"
+  SITE_OWNER               = "contact@davidcharbonnier.fr"
+  DEFAULT_LANGUAGE         = "fr_FR"
+  TZ                       = "America/New_York"
+  TRUSTED_PROXIES          = "**"
+  LOG_CHANNEL              = "stdout"
+  SEND_ERROR_MESSAGE       = "false"
+  SEND_REPORT_JOURNALS     = "false"
+  DKR_CHECK_SQLITE         = "false"
+  DKR_RUN_MIGRATION        = "true"
+  DKR_RUN_UPGRADE          = "true"
+  DKR_RUN_VERIFY           = "true"
+  DKR_RUN_REPORT           = "true"
+  DKR_RUN_PASSPORT_INSTALL = "true"
+}
