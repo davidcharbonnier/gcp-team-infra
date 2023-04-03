@@ -11,26 +11,39 @@ variable "vpc_self_links" {
   type = map(string)
 }
 
-variable "database_instance_name" {
+variable "budget_database_instance_name" {
   type = string
 }
 
-variable "database_instance_version" {
+variable "budget_database_instance_version" {
   type    = string
   default = "POSTGRES_12"
 }
 
-variable "database_instance_tier" {
+variable "budget_database_instance_tier" {
   type    = string
   default = "db-f1-micro"
 }
 
-variable "database_instance_databases" {
-  type    = list(string)
+variable "budget_database_instance_database" {
+  type    = string
   default = null
 }
 
-variable "database_instance_users" {
-  type    = map(string)
+variable "budget_database_instance_user" {
+  type    = string
   default = null
+}
+
+variable "budget_app_name" {
+  type = string
+}
+
+variable "budget_app_container_image" {
+  type    = string
+  default = "fireflyiii/core:latest"
+}
+
+variable "budget_app_container_env" {
+  type = map(string)
 }
