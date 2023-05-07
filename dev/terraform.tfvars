@@ -1,4 +1,5 @@
 project_id                        = "dch-dev-infra-hosting-0"
+subnet_name                       = "dev-pf-infra-hosting-svcless-nane1"
 budget_database_instance_name     = "budget"
 budget_database_instance_database = "firefly"
 budget_database_instance_user     = "firefly"
@@ -21,3 +22,4 @@ budget_app_container_env = {
   DKR_RUN_REPORT           = "true"
   DKR_RUN_PASSPORT_INSTALL = "true"
 }
+budget_app_host = "budget.davidcharbonnier.fr"

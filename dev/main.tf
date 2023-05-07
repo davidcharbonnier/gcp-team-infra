@@ -51,4 +51,32 @@ module "budget_app" {
     resources     = null
     volume_mounts = null
   }]
+  revision_annotations = {
+    autoscaling = {
+      max_scale = 1
+      min_scale = 0
+    }
+    cloudsql_instances  = [module.budget_database.connection_name]
+    vpcaccess_connector = var.dev
+    vpcaccess_egress    = "all-traffic"
+  }
 }
+
+resource "google_cloud_run_service_iam_member" "budget_app_access" {
+  location = var.region
+  project  = var.project_id
+  service  = module.budget_app.service_name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
+#resource "google_cloud_run_domain_mapping" "budget_app_url" {
+#  name     = var.budget_app_host
+#  location = var.region
+#  metadata {
+#    namespace = var.project_id
+#  }
+#  spec {
+#    route_name = module.budget_app.service_name
+#  }
+#}
