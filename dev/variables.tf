@@ -7,6 +7,10 @@ variable "region" {
   default = "northamerica-northeast1"
 }
 
+variable "subnet_name" {
+  type = string
+}
+
 variable "vpc_self_links" {
   type = map(string)
 }
@@ -46,4 +50,14 @@ variable "budget_app_container_image" {
 
 variable "budget_app_container_env" {
   type = map(string)
+}
+
+variable "budget_app_host" {
+  type        = string
+  description = "Hostname for budget app"
+}
+
+variable "dev" {
+  type = string
+  description = "Selflink of dev Serverless Connector"
 }
