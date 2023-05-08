@@ -80,3 +80,62 @@ resource "google_cloud_run_service_iam_member" "budget_app_access" {
 #    route_name = module.budget_app.service_name
 #  }
 #}
+
+module "budget_importer_app" {
+  source     = "git@github.com:GoogleCloudPlatform/cloud-foundation-fabric.git//modules/cloud-run?ref=v21.0.0"
+  project_id = var.project_id
+  name       = var.budget_importer_app_name
+  region     = var.region
+  containers = [{
+    image = var.budget_importer_app_container_image
+    options = {
+      command = null
+      args    = null
+      env = merge(
+        var.budget_importer_app_container_env,
+        {
+          FIREFLY_III_URL = module.budget_app.service.status[0].url
+          VANITY_URL      = module.budget_app.service.status[0].url
+        }
+      )
+      env_from = null
+    }
+    ports = [
+      {
+        name           = "http1"
+        protocol       = "TCP"
+        container_port = "8080"
+      }
+    ]
+    resources     = null
+    volume_mounts = null
+  }]
+  revision_annotations = {
+    autoscaling = {
+      max_scale = 1
+      min_scale = 0
+    }
+    cloudsql_instances  = null
+    vpcaccess_connector = var.dev
+    vpcaccess_egress    = "all-traffic"
+  }
+}
+
+resource "google_cloud_run_service_iam_member" "budget_importer_app_access" {
+  location = var.region
+  project  = var.project_id
+  service  = module.budget_importer_app.service_name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
+#resource "google_cloud_run_domain_mapping" "budget_importer_app_url" {
+#  name     = var.budget_importer_app_host
+#  location = var.region
+#  metadata {
+#    namespace = var.project_id
+#  }
+#  spec {
+#    route_name = module.budget_importer_app.service_name
+#  }
+#}
