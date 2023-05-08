@@ -57,7 +57,25 @@ variable "budget_app_host" {
   description = "Hostname for budget app"
 }
 
-variable "dev" {
+variable "budget_importer_app_name" {
   type = string
+}
+
+variable "budget_importer_app_container_image" {
+  type    = string
+  default = "fireflyiii/data-importer:latest"
+}
+
+variable "budget_importer_app_container_env" {
+  type = map(string)
+}
+
+variable "budget_importer_app_host" {
+  type        = string
+  description = "Hostname for budget importer app"
+}
+
+variable "dev" {
+  type        = string
   description = "Selflink of dev Serverless Connector"
 }
