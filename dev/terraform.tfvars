@@ -26,7 +26,7 @@ budget_app_container_env = {
 }
 budget_app_host = "budget.davidcharbonnier.fr"
 # Budget importer
-budget_importer_app_name = "budget"
+budget_importer_app_name = "budget-importer"
 budget_importer_app_container_env = {
   APP_NAME                = "Budget importer"
   APP_ENV                 = "production"
