@@ -37,5 +37,6 @@ budget_importer_app_container_env = {
   LOG_LEVEL               = "info"
   TZ                      = "America/New_York"
   EXPECT_SECURE_URL       = true
+  TRUSTED_PROXIES         = "**"
 }
 budget_importer_app_host = "budget-importer.davidcharbonnier.fr"
