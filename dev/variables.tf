@@ -15,6 +15,10 @@ variable "vpc_self_links" {
   type = map(string)
 }
 
+variable "vpc_connectors" {
+  type = map(string)
+}
+
 variable "budget_database_instance_name" {
   type = string
 }
@@ -73,9 +77,4 @@ variable "budget_importer_app_container_env" {
 variable "budget_importer_app_host" {
   type        = string
   description = "Hostname for budget importer app"
-}
-
-variable "dev" {
-  type        = string
-  description = "Selflink of dev Serverless Connector"
 }
