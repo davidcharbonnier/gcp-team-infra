@@ -1,1 +1,1 @@
-# gcp-infra-hosting
+# gcp-team-infra

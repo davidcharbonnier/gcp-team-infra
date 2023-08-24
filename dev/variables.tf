@@ -75,7 +75,7 @@ variable "budget_importer_app_host" {
   description = "Hostname for budget importer app"
 }
 
-variable "dev" {
-  type        = string
-  description = "Selflink of dev Serverless Connector"
+variable "vpc_connectors" {
+  type        = map(string)
+  description = "Selflink of Serverless Connectors"
 }
