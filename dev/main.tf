@@ -79,6 +79,7 @@ resource "google_cloud_run_service_iam_member" "budget_app_access" {
 
 resource "google_cloud_scheduler_job" "budget_app_cron" {
   name             = var.budget_app_cron_name
+  project          = var.project_id
   region           = var.region
   description      = var.budget_app_cron_description
   schedule         = var.budget_app_cron_schedule
@@ -91,7 +92,7 @@ resource "google_cloud_scheduler_job" "budget_app_cron" {
 
   http_target {
     http_method = "GET"
-    uri         = "${module.budget_app.service.status[0].url}/api/cron/${var.budget_app_static_cron_token}"
+    uri         = "${module.budget_app.service.status[0].url}/api/v1/cron/${var.budget_app_static_cron_token}"
   }
 }
 
