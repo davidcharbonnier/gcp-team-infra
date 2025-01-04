@@ -24,17 +24,18 @@ module "budget_app" {
   region     = var.region
   containers = {
     budget = {
-      image = var.budget_app_container_image
+      image = "${var.budget_app_container_image_name}:${var.budget_app_container_image_tag}"
       env = merge(
         var.budget_app_container_env,
         {
-          APP_KEY       = random_string.app_key.result
-          DB_CONNECTION = "pgsql"
-          DB_HOST       = module.budget_database.ip
-          DB_PORT       = "5432"
-          DB_DATABASE   = var.budget_database_instance_database
-          DB_USERNAME   = var.budget_database_instance_user
-          DB_PASSWORD   = lookup(module.budget_database.user_passwords, var.budget_database_instance_user)
+          APP_KEY           = random_string.app_key.result
+          DB_CONNECTION     = "pgsql"
+          DB_HOST           = module.budget_database.ip
+          DB_PORT           = "5432"
+          DB_DATABASE       = var.budget_database_instance_database
+          DB_USERNAME       = var.budget_database_instance_user
+          DB_PASSWORD       = lookup(module.budget_database.user_passwords, var.budget_database_instance_user)
+          STATIC_CRON_TOKEN = var.budget_app_static_cron_token
         }
       )
       ports = {
@@ -76,6 +77,24 @@ resource "google_cloud_run_service_iam_member" "budget_app_access" {
 #  }
 #}
 
+resource "google_cloud_scheduler_job" "budget_app_cron" {
+  name             = var.budget_app_cron_name
+  region           = var.region
+  description      = var.budget_app_cron_description
+  schedule         = var.budget_app_cron_schedule
+  time_zone        = "America/New_York"
+  attempt_deadline = "300s"
+
+  retry_config {
+    retry_count = 1
+  }
+
+  http_target {
+    http_method = "GET"
+    uri         = "${module.budget_app.service.status[0].url}/api/cron/${var.budget_app_static_cron_token}"
+  }
+}
+
 module "budget_importer_app" {
   source     = "git@github.com:GoogleCloudPlatform/cloud-foundation-fabric.git//modules/cloud-run?ref=v25.0.0"
   project_id = var.project_id
@@ -83,7 +102,7 @@ module "budget_importer_app" {
   region     = var.region
   containers = {
     budget-importer = {
-      image = var.budget_importer_app_container_image
+      image = "${var.budget_importer_app_container_image_name}:${var.budget_importer_app_container_image_tag}"
       env = merge(
         var.budget_importer_app_container_env,
         {

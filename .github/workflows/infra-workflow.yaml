@@ -36,6 +36,7 @@ env:
     2-networking-serverless-connnector.auto.tfvars.json
     2-security.auto.tfvars.json
   TF_VERSION: 1.4.4
+  TF_VAR_budget_app_static_cron_token: "${{ secrets.FIREFLY_STATIC_CRON_TOKEN }}"
 
 jobs:
   fast-pr:
