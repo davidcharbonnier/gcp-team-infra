@@ -43,9 +43,14 @@ variable "budget_app_name" {
   type = string
 }
 
-variable "budget_app_container_image" {
+variable "budget_app_container_image_name" {
   type    = string
-  default = "fireflyiii/core:latest"
+  default = "fireflyiii/core"
+}
+
+variable "budget_app_container_image_tag" {
+  type    = string
+  default = "latest"
 }
 
 variable "budget_app_container_env" {
@@ -57,13 +62,38 @@ variable "budget_app_host" {
   description = "Hostname for budget app"
 }
 
+variable "budget_app_static_cron_token" {
+  type        = string
+  sensitive   = true
+  description = "Static token for cron API calls on budget app"
+}
+
+variable "budget_app_cron_name" {
+  type    = string
+  default = "budget-cron"
+}
+
+variable "budget_app_cron_description" {
+  type    = string
+  default = "Budget app scheduled tasks"
+}
+
+variable "budget_app_cron_schedule" {
+  type = string
+}
+
 variable "budget_importer_app_name" {
   type = string
 }
 
-variable "budget_importer_app_container_image" {
+variable "budget_importer_app_container_image_name" {
   type    = string
-  default = "fireflyiii/data-importer:latest"
+  default = "fireflyiii/data-importer"
+}
+
+variable "budget_importer_app_container_image_tag" {
+  type    = string
+  default = "latest"
 }
 
 variable "budget_importer_app_container_env" {

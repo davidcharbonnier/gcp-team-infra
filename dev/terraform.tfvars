@@ -5,7 +5,8 @@ budget_database_instance_name     = "budget"
 budget_database_instance_database = "firefly"
 budget_database_instance_user     = "firefly"
 # Budget app
-budget_app_name = "budget"
+budget_app_name                = "budget"
+budget_app_container_image_tag = "version-6.1.25"
 budget_app_container_env = {
   APP_NAME                 = "Budget"
   APP_ENV                  = "production"
@@ -25,8 +26,11 @@ budget_app_container_env = {
   DKR_RUN_PASSPORT_INSTALL = "true"
 }
 budget_app_host = "budget.davidcharbonnier.fr"
+# Budget app cron
+budget_app_cron_schedule = "0 3 * * *"
 # Budget importer
-budget_importer_app_name = "budget-importer"
+budget_importer_app_name                = "budget-importer"
+budget_importer_app_container_image_tag = "version-1.5.7"
 budget_importer_app_container_env = {
   APP_NAME                = "Budget importer"
   APP_ENV                 = "production"
